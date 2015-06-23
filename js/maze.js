@@ -67,7 +67,7 @@ Maze.prototype.canMove = function(x, y, direction) {
 	}
 	
 	var forwardX, forwardY;
-	switch (this.orientation) {
+	switch (direction) {
 		case "north":
 			forwardX = x;
 			forwardY = y+1;
@@ -89,6 +89,22 @@ Maze.prototype.canMove = function(x, y, direction) {
 		return false;
 	}
 	
+	if (this.spaces[x][y][direction]) {
+		return false;
+	}
+	
+	var opposites = {
+		north: "south",
+		east: "west",
+		south: "north",
+		west: "east"
+	}
+	if (this.spaces[forwardX][forwardY][opposites[direction]]){
+		return false;
+	}
+	
 	
 	return true;
 }
+
+// it's actually more important that he turns left and it back forward and right
